@@ -20,5 +20,12 @@ namespace AmazonRegistration.Controllers
         {
             return Ok(_order.GetOrder());
         }
+        
+       [HttpPost]
+        [Route("GetAmazonOrders")]
+        public IActionResult LoadDataFromAmazon(inputFeild input)
+        {
+            return Ok(_order.LoadDataFromAmazon( input));
+        }
     }
 }

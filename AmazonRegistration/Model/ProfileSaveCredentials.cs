@@ -19,9 +19,9 @@ namespace AmazonRegistration.Model
         public string? aws_access_key { get; set; }
         public string? refresh_token { get; set; }
         public string? access_token { get; set; }
-        public DateTime a_expires_in { get; set; }
-        public string session_token { get; set; }
-        public DateTime s_expires_in { get; set; }
+        public DateTime? a_expires_in { get; set; }
+        public string? session_token { get; set; }
+        public DateTime? s_expires_in { get; set; }
         public DateTime? created_on { get; set; }
         public int? created_by { get; set; }
         public DateTime? updated_on { get; set; }

@@ -14,11 +14,13 @@ namespace AmazonRegistration.Repo
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly ApplicationDbContext db;
         private readonly IConfiguration _config;
-        public OrderRepo(ApplicationDbContext db, IConfiguration config, IHttpContextAccessor _httpContextAccessor)
+        private readonly IGanrateAccessToken _tokenService;
+        public OrderRepo(ApplicationDbContext db, IConfiguration config, IHttpContextAccessor _httpContextAccessor, IGanrateAccessToken tokenService)
         {
             this.db = db;
             _config = config;
             this._httpContextAccessor = _httpContextAccessor;
+            _tokenService = tokenService;
         }
 
         public Object GetOrder()
@@ -176,8 +178,20 @@ namespace AmazonRegistration.Repo
        {
            var response = new Response();
             if(input== null) { response.Message = "please insert the input parameter";return response;}
-            if(input.fromDate==null && input.toDate == null) { response.Message = "please insert the input date" ; return response; }
+            if(input.fromDate==null && input.toDate == null) { response.Message = "please insert the input date"; return response;}
+            Dictionary<string, string> myDictionary = new Dictionary<string, string>(){
+                                                       {"CreatedAfter",input.fromDate },
+                                                       {"CreatedBefore",input.toDate}
+};
+            var query = myDictionary.Where(x => !string.IsNullOrEmpty(x.Value) || !string.IsNullOrWhiteSpace(x.Value)).ToDictionary(x => x.Key, x => x.Value);
+            var qs = string.Join("&", query.OrderBy(q => q.Key).Select(q => q.Key + "=" + Uri.EscapeDataString(q.Value)));
+            var headers = new Dictionary<string, string>()
+            {
+                {  "x-amz-access-token" , _tokenService.GetToken(input.p_id) .Result.access_token}
+            };
 
+
+            return null;
 
         }
     }

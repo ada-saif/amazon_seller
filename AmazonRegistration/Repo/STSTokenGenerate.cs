@@ -63,7 +63,7 @@ namespace AmazonRegistration.Repo
                 var a = new STSTokenData
                 {
                     secret_key = data.session_token,
-                    expiry = data.s_expires_in,
+                    expiry = Convert.ToDateTime(data.s_expires_in),
                 };
                 return a;
 
