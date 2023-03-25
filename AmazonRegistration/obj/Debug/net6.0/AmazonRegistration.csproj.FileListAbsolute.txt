@@ -68,3 +68,13 @@ C:\saif\AmazonRegistration\AmazonRegistration\obj\Debug\net6.0\refint\AmazonRegi
 C:\saif\AmazonRegistration\AmazonRegistration\obj\Debug\net6.0\AmazonRegistration.pdb
 C:\saif\AmazonRegistration\AmazonRegistration\obj\Debug\net6.0\AmazonRegistration.genruntimeconfig.cache
 C:\saif\AmazonRegistration\AmazonRegistration\obj\Debug\net6.0\ref\AmazonRegistration.dll
+D:\Api Projects\AmazonRegistration\AmazonRegistration\obj\Debug\net6.0\AmazonRegistration.csproj.AssemblyReference.cache
+D:\Api Projects\AmazonRegistration\AmazonRegistration\obj\Debug\net6.0\AmazonRegistration.GeneratedMSBuildEditorConfig.editorconfig
+D:\Api Projects\AmazonRegistration\AmazonRegistration\obj\Debug\net6.0\AmazonRegistration.AssemblyInfoInputs.cache
+D:\Api Projects\AmazonRegistration\AmazonRegistration\obj\Debug\net6.0\AmazonRegistration.AssemblyInfo.cs
+D:\Api Projects\AmazonRegistration\AmazonRegistration\obj\Debug\net6.0\AmazonRegistration.csproj.CoreCompileInputs.cache
+D:\Api Projects\AmazonRegistration\AmazonRegistration\obj\Debug\net6.0\AmazonRegistration.MvcApplicationPartsAssemblyInfo.cs
+D:\Api Projects\AmazonRegistration\AmazonRegistration\obj\Debug\net6.0\AmazonRegistration.MvcApplicationPartsAssemblyInfo.cache
+D:\Api Projects\AmazonRegistration\AmazonRegistration\obj\Debug\net6.0\AmazonRegistration.dll
+D:\Api Projects\AmazonRegistration\AmazonRegistration\obj\Debug\net6.0\refint\AmazonRegistration.dll
+D:\Api Projects\AmazonRegistration\AmazonRegistration\obj\Debug\net6.0\AmazonRegistration.pdb

@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\saif\\AmazonRegistration\\AmazonRegistration\\AmazonRegistration.csproj": {}
+    "D:\\Api Projects\\AmazonRegistration\\AmazonRegistration\\AmazonRegistration.csproj": {}
   },
   "projects": {
-    "C:\\saif\\AmazonRegistration\\AmazonRegistration\\AmazonRegistration.csproj": {
+    "D:\\Api Projects\\AmazonRegistration\\AmazonRegistration\\AmazonRegistration.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\saif\\AmazonRegistration\\AmazonRegistration\\AmazonRegistration.csproj",
+        "projectUniqueName": "D:\\Api Projects\\AmazonRegistration\\AmazonRegistration\\AmazonRegistration.csproj",
         "projectName": "AmazonRegistration",
-        "projectPath": "C:\\saif\\AmazonRegistration\\AmazonRegistration\\AmazonRegistration.csproj",
-        "packagesPath": "C:\\Users\\lenovo.T460\\.nuget\\packages\\",
-        "outputPath": "C:\\saif\\AmazonRegistration\\AmazonRegistration\\obj\\",
+        "projectPath": "D:\\Api Projects\\AmazonRegistration\\AmazonRegistration\\AmazonRegistration.csproj",
+        "packagesPath": "C:\\Users\\ECS\\.nuget\\packages\\",
+        "outputPath": "D:\\Api Projects\\AmazonRegistration\\AmazonRegistration\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\lenovo.T460\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\ECS\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -40,17 +40,13 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "dependencies": {
-            "EntityFramework": {
+            "AWSSDK.SecurityToken": {
               "target": "Package",
-              "version": "[6.4.4, )"
+              "version": "[3.7.101.34, )"
             },
             "Microsoft.AspNetCore.Authentication.JwtBearer": {
               "target": "Package",
-              "version": "[6.0.8, )"
-            },
-            "Microsoft.IdentityModel.JsonWebTokens": {
-              "target": "Package",
-              "version": "[6.27.0, )"
+              "version": "[6.0.10, )"
             },
             "Newtonsoft.Json": {
               "target": "Package",
@@ -72,9 +68,9 @@
               "target": "Package",
               "version": "[7.0.0, )"
             },
-            "System.Data.SqlClient": {
+            "System.IdentityModel.Tokens.Jwt": {
               "target": "Package",
-              "version": "[4.8.5, )"
+              "version": "[6.27.0, )"
             }
           },
           "imports": [
@@ -83,7 +79,8 @@
             "net47",
             "net471",
             "net472",
-            "net48"
+            "net48",
+            "net481"
           ],
           "assetTargetFallback": true,
           "warn": true,
@@ -95,7 +92,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.302\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.401\\RuntimeIdentifierGraph.json"
         }
       }
     }

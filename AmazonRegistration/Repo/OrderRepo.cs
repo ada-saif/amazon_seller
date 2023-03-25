@@ -3,7 +3,6 @@ using AmazonRegistration.Model;
 using Npgsql;
 using System;
 using System.Data;
-using System.Data.Entity.Infrastructure;
 using System.Data.SqlClient;
 using System.Linq;
 
@@ -172,13 +171,13 @@ namespace AmazonRegistration.Repo
 
         }
 
-        public Response LoadDataFromAmazon(inputFeild input)
-       {
-           var response = new Response();
-            if(input== null) { response.Message = "please insert the input parameter";return response;}
-            if(input.fromDate==null && input.toDate == null) { response.Message = "please insert the input date" ; return response; }
+       // public Response LoadDataFromAmazon(inputFeild input)
+       //{
+       //    var response = new Response();
+       //     if(input== null) { response.Message = "please insert the input parameter";return response;}
+       //     if(input.fromDate==null && input.toDate == null) { response.Message = "please insert the input date" ; return response; }
 
 
-        }
+       // }
     }
 }
