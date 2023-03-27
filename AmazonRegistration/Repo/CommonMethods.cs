@@ -11,7 +11,7 @@ namespace AmazonSellerApi.Repo
         public static string GenerateOTP()
         {
             Random random = new Random();
-            int otpNumber = random.Next(10000, 99999);
+            int otpNumber = random.Next(100000, 999999);
             return otpNumber.ToString();
         }
        
