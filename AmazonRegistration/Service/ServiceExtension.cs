@@ -14,6 +14,9 @@ namespace AmazonRegistration.Service
             services.AddTransient<IProduct, ProductRepo>();
             services.AddTransient<ITokenService, TokenService>();
             services.AddTransient<IProfile, ProfileRepo>();
+            services.AddTransient<IGanrateAccessToken, GanrateAccessToken>();
+
+
 
 
 

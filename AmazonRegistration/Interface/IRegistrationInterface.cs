@@ -1,4 +1,5 @@
 ﻿using AmazonRegistration.Model;
+using AmazonSellerApi.Model;
 
 namespace AmazonRegistration.Interface
 {
@@ -9,6 +10,9 @@ namespace AmazonRegistration.Interface
         public Task<Response> GenerateAccessTokenss(authModel user);
 
         public string Salt(string Original);
+        public Response ValidateOtp(validateOtp otp);
+        public Response GetbyUserId(int userId);
+        public Response UpdateUser(RegistrationModel model);
 
 
     }

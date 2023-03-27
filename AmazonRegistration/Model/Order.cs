@@ -261,9 +261,9 @@ namespace AmazonRegistration.Model
     }
     public class inputFeild 
     {
-        public int  p_id { get; set; }
-        public string  fromDate { get; set; }
-        public string  toDate { get; set; }
+        public int p_id { get; set; }
+        public string?  fromDate { get; set; }
+        public string?  toDate { get; set; }
     }
 
 }

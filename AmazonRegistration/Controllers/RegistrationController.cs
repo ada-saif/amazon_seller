@@ -1,5 +1,6 @@
 ﻿using AmazonRegistration.Interface;
 using AmazonRegistration.Model;
+using AmazonSellerApi.Model;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -34,6 +35,24 @@ namespace AmazonRegistration.Controllers
         {
             return Ok(_registration.GenerateAccessTokenss(user));
         }
-       
+        [HttpPost]
+        [Route("otp/VerifyOtp")]
+        public IActionResult ValidateOtp(validateOtp Otp)
+        {
+            return Ok(_registration.ValidateOtp(Otp));
+        }
+        [HttpGet]
+        [Route("GetbyUserId/{UserId}")]
+        public IActionResult GetbyUserId(int userId)
+        {
+            return Ok(_registration.GetbyUserId(userId));
+        }
+        [HttpPost]
+        [Route("UserUpdate")]
+        public IActionResult UpdateUser(RegistrationModel model)
+        {
+            return Ok(_registration.UpdateUser(model));
+        }
+
     }
 }
