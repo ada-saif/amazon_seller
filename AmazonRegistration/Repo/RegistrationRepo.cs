@@ -67,50 +67,50 @@ namespace AmazonRegistration.Repo
             }
         }
 
-        public Response UserRegistration(RegistrationModel userModel)
-        {
+        //public Response UserRegistration(RegistrationModel userModel)
+        //{
 
-            Response response = new Response();
-            if (userModel == null)
-            {
-                response.Status = false;
-                response.Message = "Please Provide The Data";
-                return response;
-            }
-            var checkMobileNumber = db.tbl_user_registration.FirstOrDefault(a => a.user_mobile_no == userModel.user_mobile_no);
-            if (checkMobileNumber != null) { response.Message = "Mobile Number already exists"; return response; }
+        //    Response response = new Response();
+        //    if (userModel == null)
+        //    {
+        //        response.Status = false;
+        //        response.Message = "Please Provide The Data";
+        //        return response;
+        //    }
+        //    var checkMobileNumber = db.tbl_user_registration.FirstOrDefault(a => a.user_mobile_no == userModel.user_mobile_no);
+        //    if (checkMobileNumber != null) { response.Message = "Mobile Number already exists"; return response; }
 
-            var CheckUsername = db.tbl_user_registration.FirstOrDefault(a => a.user_name == userModel.user_name);
-            if (CheckUsername != null)
-            {
-                response.Message = "Username already exists";
-                return response;
-            }
-            if (userModel.user_name.Length < 2 || userModel.user_name.Length > 20) { response.Message = "Enter min 2 and max 20 length"; return response; }
-            if (userModel.user_password.Length < 8 || userModel.user_password.Length > 25) { response.Message = "Enter min 8 and max 25 length"; return response; }
-            RegistrationModel obj = new RegistrationModel();
-            obj.user_name = userModel.user_name;
-            obj.user_mobile_no = userModel.user_mobile_no;
-            obj.user_email = userModel.user_email;
-            obj.user_password = Salt(userModel.user_password);
-            obj.is_active = userModel.is_active;
-            db.tbl_user_registration.Add(obj);
-            int res = db.SaveChanges();
-            if (res > 0)
-            {
-                response.Status = true;
-                response.Message = "data add succeessfully";
-                response.ResponseObject = obj.WithoutPassword();
-                return response;
-            }
-            else
-            {
-                response.Status = false;
-                response.Message = "no data add";
-                return response;
+        //    var CheckUsername = db.tbl_user_registration.FirstOrDefault(a => a.user_name == userModel.user_name);
+        //    if (CheckUsername != null)
+        //    {
+        //        response.Message = "Username already exists";
+        //        return response;
+        //    }
+        //    if (userModel.user_name.Length < 2 || userModel.user_name.Length > 20) { response.Message = "Enter min 2 and max 20 length"; return response; }
+        //    if (userModel.user_password.Length < 8 || userModel.user_password.Length > 25) { response.Message = "Enter min 8 and max 25 length"; return response; }
+        //    RegistrationModel obj = new RegistrationModel();
+        //    obj.user_name = userModel.user_name;
+        //    obj.user_mobile_no = userModel.user_mobile_no;
+        //    obj.user_email = userModel.user_email;
+        //    obj.user_password = Salt(userModel.user_password);
+        //    obj.is_active = userModel.is_active;
+        //    db.tbl_user_registration.Add(obj);
+        //    int res = db.SaveChanges();
+        //    if (res > 0)
+        //    {
+        //        response.Status = true;
+        //        response.Message = "data add succeessfully";
+        //        response.ResponseObject = obj.WithoutPassword();
+        //        return response;
+        //    }
+        //    else
+        //    {
+        //        response.Status = false;
+        //        response.Message = "no data add";
+        //        return response;
 
-            }
-        }
+        //    }
+        //}
         public string Salt(string Original)
         {
             var hash = "ajhsjfhkasfuasfasfho";
@@ -192,6 +192,10 @@ namespace AmazonRegistration.Repo
 
         }
 
+        public Response UserRegistration(RegistrationModel userModel)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
 

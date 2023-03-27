@@ -2,9 +2,9 @@
 
 namespace AmazonRegistration.Interface
 {
-    public interface IRegistrationInterface
-    {
-        public Response UserRegistration(RegistrationModel userModel);
+//    public interface IRegistrationInterface
+//    {
+//  //      public Response UserRegistration(RegistrationModel userModel);
 
-    }
+//    }
 }

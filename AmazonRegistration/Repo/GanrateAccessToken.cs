@@ -52,7 +52,7 @@ namespace AmazonRegistration.Repo
                 var a = new AccessTokenData
                  {
                     access_token=data.access_token,
-                    expiry=data.a_expires_in,
+                    expiry=Convert.ToDateTime(data.a_expires_in),
                 };
                 return a;
 

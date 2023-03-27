@@ -37,7 +37,7 @@ namespace AmazonRegistration.Repo
             var connectionString = _config.GetConnectionString("Amazon");
             var sql = "SELECT amazon_order_id, marchant_id,seller_order_id,purchase_date,last_update_date,order_status,fulfillment_channel,sales_channel,ship_service_level,number_of_items_shipped,number_of_items_unshipped,payment_method,marketplace_id,shipment_service_level_category,easy_ship_shipment_status,order_type,earliest_ship_date,latest_ship_date,earliest_delivery_date,latest_delivery_date,is_business_order,is_prime,is_premium_order,is_global_express_enabled,is_replacement_order,is_estimated_ship_date_set,is_sold_by_a_b,is_i_b_a,is_i_s_p_u,is_access_point_order,has_regulated_items FROM tbl_order";
             var countSql = "SELECT COUNT(*) FROM tbl_order";
-            var searchParam = string.IsNullOrEmpty(searchValue) ? string.Empty : $"%{searchValue.ToLower()}%";
+            var searchParam = string.IsNullOrEmpty(searchValue) ? string.Empty : $"'%{searchValue.ToLower()}%'";
             var searchSql = "WHERE LOWER(seller_order_id)  iLIKE " + searchParam +
                 " OR LOWER(amazon_order_id) iLIKE " + searchParam +
                 " OR LOWER(marchant_id) iLIKE " + searchParam +
@@ -88,7 +88,7 @@ namespace AmazonRegistration.Repo
                 if (!string.IsNullOrEmpty(searchValue))
                 {
                     countSql += searchSql;
-                    using (var command = new NpgsqlCommand(countSql, connection))
+                    using (+var command = new NpgsqlCommand(countSql, connection))
                     {
                         totalrecords = Convert.ToInt32(command.ExecuteScalar());
                     }
@@ -171,13 +171,18 @@ namespace AmazonRegistration.Repo
 
         }
 
-       // public Response LoadDataFromAmazon(inputFeild input)
-       //{
-       //    var response = new Response();
-       //     if(input== null) { response.Message = "please insert the input parameter";return response;}
-       //     if(input.fromDate==null && input.toDate == null) { response.Message = "please insert the input date" ; return response; }
+        public Response LoadDataFromAmazon(inputFeild input)
+        {
+            throw new NotImplementedException();
+        }
+
+        // public Response LoadDataFromAmazon(inputFeild input)
+        //{
+        //    var response = new Response();
+        //     if(input== null) { response.Message = "please insert the input parameter";return response;}
+        //     if(input.fromDate==null && input.toDate == null) { response.Message = "please insert the input date" ; return response; }
 
 
-       // }
+        // }
     }
 }
