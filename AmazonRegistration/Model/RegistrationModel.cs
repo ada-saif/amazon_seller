@@ -8,13 +8,15 @@ namespace AmazonRegistration.Model
         [Key]
         public int? id { get; set; }
         public string user_name { get; set; }
-        public string user_mobile_no { get; set; }
-        public string user_email { get; set; }
-        public string user_password { get; set; }
+        public string mobile { get; set; }
+        public string email { get; set; }
+        public string password { get; set; }
         public bool is_active { get; set; }
+        public string? otp { get; set; }
+        public DateTime? otp_valid_till { get; set; } 
         public RegistrationModel WithoutPassword()
         {
-            this.user_password = null;
+            this.password = null;
             return this;
         }
     }

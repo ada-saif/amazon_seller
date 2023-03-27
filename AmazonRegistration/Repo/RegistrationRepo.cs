@@ -1,7 +1,10 @@
 ﻿using AmazonRegistration.Interface;
 using AmazonRegistration.LoggedInUser;
 using AmazonRegistration.Model;
+using AmazonSellerApi.Model;
+using AmazonSellerApi.Repo;
 using Microsoft.AspNetCore.Cryptography.KeyDerivation;
+using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using RestSharp;
 using System.Security.Claims;
@@ -35,6 +38,7 @@ namespace AmazonRegistration.Repo
             if (login.MobileNumber.Length < 2 || login.MobileNumber.Length > 20) { response.Message = "Enter min 2 and max 20 length"; return response; }
             if (login.Password.Length < 8 || login.Password.Length > 25) { response.Message = "Enter min 8 and max 25 length"; return response; }
             var user = this.LoginCheck(login);
+            if (user.is_active == false) { response.Message = "You have not registered";return response;}
             var count = _profile.GetUserCount(user.id);
             var claim = new Claim("UserCount", count.ToString());
             if (user == null)
@@ -70,6 +74,7 @@ namespace AmazonRegistration.Repo
         public Response UserRegistration(RegistrationModel userModel)
         {
 
+
             Response response = new Response();
             if (userModel == null)
             {
@@ -77,29 +82,32 @@ namespace AmazonRegistration.Repo
                 response.Message = "Please Provide The Data";
                 return response;
             }
-            var checkMobileNumber = db.tbl_user_registration.FirstOrDefault(a => a.user_mobile_no == userModel.user_mobile_no);
+            var data = db.tbl_user.FirstOrDefault(a => a.email == userModel.email || a.mobile == userModel.mobile);
+            if(data != null) { this.UpdateUser(data); }
+            var checkMobileNumber = db.tbl_user.FirstOrDefault(a => a.mobile == userModel.mobile);
             if (checkMobileNumber != null) { response.Message = "Mobile Number already exists"; return response; }
-
-            var CheckUsername = db.tbl_user_registration.FirstOrDefault(a => a.user_name == userModel.user_name);
+            var CheckUsername = db.tbl_user.FirstOrDefault(a => a.user_name == userModel.user_name);
             if (CheckUsername != null)
-            {
-                response.Message = "Username already exists";
-                return response;
-            }
+            { response.Message = "Username already exists"; return response; }
+            var emailCheck = db.tbl_user.FirstOrDefault(a => a.email == userModel.email);
+            if (emailCheck != null) { response.Message = "This Email Id already present"; return response; }
             if (userModel.user_name.Length < 2 || userModel.user_name.Length > 20) { response.Message = "Enter min 2 and max 20 length"; return response; }
-            if (userModel.user_password.Length < 8 || userModel.user_password.Length > 25) { response.Message = "Enter min 8 and max 25 length"; return response; }
+            if (userModel.password.Length < 8 || userModel.password.Length > 25) { response.Message = "Enter min 8 and max 25 length"; return response; }
+            var OtpObj = CommonMethods.SendEmail(userModel.email);
             RegistrationModel obj = new RegistrationModel();
             obj.user_name = userModel.user_name;
-            obj.user_mobile_no = userModel.user_mobile_no;
-            obj.user_email = userModel.user_email;
-            obj.user_password = Salt(userModel.user_password);
-            obj.is_active = userModel.is_active;
-            db.tbl_user_registration.Add(obj);
+            obj.otp = OtpObj;
+            obj.mobile = userModel.mobile;
+            obj.email = userModel.email;
+            obj.password = Salt(userModel.password);
+            obj.is_active = false;
+            obj.otp_valid_till = DateTime.UtcNow.AddSeconds(60);
+            db.tbl_user.Add(obj);
             int res = db.SaveChanges();
             if (res > 0)
             {
                 response.Status = true;
-                response.Message = "data add succeessfully";
+                response.Message = "User Registration succeessfully";
                 response.ResponseObject = obj.WithoutPassword();
                 return response;
             }
@@ -111,6 +119,7 @@ namespace AmazonRegistration.Repo
 
             }
         }
+
         public string Salt(string Original)
         {
             var hash = "ajhsjfhkasfuasfasfho";
@@ -169,19 +178,18 @@ namespace AmazonRegistration.Repo
                 }
                 var user_profile_data = _profile.GetUserProfile(ad.access_token);
                 if (user_profile_data != null)
-                {response.Status = true; response.Message = "Data  get successfully"; response.ResponseObject = user_profile_data; return response;}
+                { response.Status = true; response.Message = "Data  get successfully"; response.ResponseObject = user_profile_data; return response; }
                 else
-                {response.Message = "No User Detail Found"; return response;}
+                { response.Message = "No User Detail Found"; return response; }
             }
             catch (Exception ex)
-            {response.Message = ex.Message;return response;}
+            { response.Message = ex.Message; return response; }
         }
         public RegistrationModel LoginCheck(Login login)
         {
-
             if (login != null)
             {
-                var obj = db.tbl_user_registration.FirstOrDefault(a => a.user_mobile_no == login.MobileNumber && a.user_password == this.Salt(login.Password));
+                var obj = db.tbl_user.FirstOrDefault(a => a.mobile == login.MobileNumber && a.password == this.Salt(login.Password));
                 if (obj != null)
                 { return obj.WithoutPassword(); }
                 else { return null; }
@@ -191,7 +199,92 @@ namespace AmazonRegistration.Repo
 
 
         }
+        public Response ValidateOtp(validateOtp Otp)
+        {
+            Response response = new Response();
+            if (Otp == null) { response.Message = "please enter your otp detail"; return response; }
+            if (Otp.otp.Length > 6 || Otp.otp.Length != 6) { response.Message = "please enter 6 digit otp"; return response; }
+            var userObj = db.tbl_user.FirstOrDefault(r => r.email.Trim().Equals(Otp.Email.Trim()));
+            if (userObj == null)
+            {
+                response.Message = "Invalid Email ID ";
+                response.ResponseObject = null;
+                return response;
+            }
+
+            var result = db.tbl_user.FirstOrDefault(r => r.email.Trim().Equals(Otp.Email.Trim()) && r.otp.Trim().Equals(Otp.otp.Trim()) && userObj.otp_valid_till >= DateTime.UtcNow);
+            if (result != null)
+            {
+                result.is_active = true;
+                response.Status = true;
+                response.Message = "OTP Validated";
+                response.ResponseObject = userObj.otp;
+                return response;
+            }
+            else
+            {
+                response.Message = "OTP Not Validated ";
+                response.ResponseObject = null;
+                return response;
+            }
+
+        }
+        public Response GetbyUserId(int userId)
+        {
+            Response response = new Response();
+            if (userId == null) { response.Message = "please enter your UserId";return response; }
+            var data = db.tbl_user.FirstOrDefault(a => a.id == userId);
+            if(data != null)
+            {
+                response.Status = true;
+                response.Message = "User Detail Found";
+                response.ResponseObject=data;
+                return response;
+            }
+            else
+            {
+                response.Message = "User Detail Not Found";
+                return response;
+            }
+
+
+        }
+        public Response UpdateUser(RegistrationModel model)
+        {
+            Response response = new Response();
+            if (model == null) { response.Message = "Please Provide The Data";return response;}
+            var data=db.tbl_user.FirstOrDefault(a => a.id == model.id);
+            if (data == null) { response.Message = "data not found "; return null; }
+            var OtpObj = CommonMethods.SendEmail(model.email);
+            data.user_name = model.user_name;
+            data.password = Salt(model.password);
+            data.email = model.email;
+            data.mobile = model.mobile;
+            data.otp = OtpObj;
+            data.is_active = false;
+            data.otp_valid_till = DateTime.UtcNow.AddSeconds(60);
+            db.tbl_user.Attach(data);
+            db.Entry(data).State = EntityState.Modified;
+            var i = db.SaveChanges();
+            if (i > 0)
+            {
+                response.Status = true;
+                response.Message = "update data successfully";
+                return response;
+            }
+            else
+            {
+                response.Message = "data not updated";
+                return response;
+            }
+
+
+
+
+        }
+
 
     }
+
 }
 
