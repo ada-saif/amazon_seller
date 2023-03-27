@@ -212,7 +212,7 @@ namespace AmazonRegistration.Repo
                 return response;
             }
 
-            var result = db.tbl_user.FirstOrDefault(r => r.email.Trim().Equals(Otp.Email.Trim()) && r.otp.Trim().Equals(Otp.otp.Trim()) && userObj.otp_valid_till >= DateTime.UtcNow);
+            var result = db.tbl_user.FirstOrDefault(r => r.email.Trim().Equals(Otp.Email.Trim()) && r.otp.Trim().Equals(Otp.otp.Trim()) && userObj.otp_valid_till >= DateTime.Now);
             if (result != null)
             {
                 result.is_active = true;
