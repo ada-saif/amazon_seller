@@ -3,18 +3,18 @@
     
         public class UserSubscription
         {
-            public int? Id { get; set; }
-            public int? UserId { get; set; }
-            public string SubName { get; set; }
-            public string Region { get; set; }
-            public string? AuthKey { get; set; }
-            public DateTime? AuthOn { get; set; }
-            public string? SpapiOauthCode { get; set; }
-            public string? MwsAuthToken { get; set; }
-            public string? SellingPartnerId { get; set; }
-            public string? RefreshToken { get; set; }
-            public bool? IsActive { get; set; }
-            public DateTime? ExpiresOn { get; set; }
+            public int? id { get; set; }
+            public int? user_id { get; set; }
+            public string sub_name { get; set; }
+            public string region { get; set; }
+            public string? auth_key { get; set; }
+            public DateTime? auth_on { get; set; }
+            public string? spapi_oauth_code { get; set; }
+            public string? mws_auth_token { get; set; }
+            public string? selling_partner_id { get; set; }
+            public string? refresh_token { get; set; }
+            public bool? is_active { get; set; }
+            public DateTime? expires_on { get; set; }
         }
 
     }
