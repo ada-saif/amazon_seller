@@ -92,7 +92,7 @@ namespace AmazonRegistration.Repo
                 if (!string.IsNullOrEmpty(searchValue))
                 {
                     countSql += searchSql;
-                    using (+var command = new NpgsqlCommand(countSql, connection))
+                    using (var command = new NpgsqlCommand(countSql, connection))
                     {
                         totalrecords = Convert.ToInt32(command.ExecuteScalar());
                     }
@@ -201,6 +201,6 @@ namespace AmazonRegistration.Repo
             return null;
 
 
-        // }
+         }
     }
 }

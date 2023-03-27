@@ -1,8 +1,8 @@
 {
   "Version": 1,
-  "Hash": "+L+kUFekysM8KKRceP1dNXP3ZNMBqrjr38gUmgXiEnk=",
-  "Source": "AmazonRegistration",
-  "BasePath": "_content/AmazonRegistration",
+  "Hash": "xPBmiJLq1X72ZoOHrf1w/n3b9s85BcCwWYwRxfl+JIw=",
+  "Source": "AmazonSellerApi",
+  "BasePath": "_content/AmazonSellerApi",
   "Mode": "Default",
   "ManifestType": "Build",
   "ReferencedProjectsConfiguration": [],

@@ -16,12 +16,12 @@ namespace AmazonRegistration.Controllers
         {
             this._registration = _registration;
         }
-        //[HttpPost]
-        //[Route("AddUser")]
-        //public IActionResult UserRegistration(RegistrationModel userModel)
-        //{
-        //    return Ok(_registration.UserRegistration(userModel));
-        //}
+        [HttpPost]
+        [Route("AddUser")]
+        public IActionResult UserRegistration(RegistrationModel userModel)
+        {
+            return Ok(_registration.UserRegistration(userModel));
+        }
         [HttpPost]
         [Route("UserLogin")]
         [AllowAnonymous]

@@ -71,8 +71,8 @@ namespace AmazonRegistration.Repo
             }
         }
 
-        //public Response UserRegistration(RegistrationModel userModel)
-        //{
+        public Response UserRegistration(RegistrationModel userModel)
+        {
 
 
             Response response = new Response();
@@ -83,7 +83,7 @@ namespace AmazonRegistration.Repo
                 return response;
             }
             var data = db.tbl_user.FirstOrDefault(a => a.email == userModel.email || a.mobile == userModel.mobile);
-            if(data != null) { this.UpdateUser(data); }
+            if(data != null) { var userDetail=this.UpdateUser(data);return userDetail; }
             var checkMobileNumber = db.tbl_user.FirstOrDefault(a => a.mobile == userModel.mobile);
             if (checkMobileNumber != null) { response.Message = "Mobile Number already exists"; return response; }
             var CheckUsername = db.tbl_user.FirstOrDefault(a => a.user_name == userModel.user_name);
@@ -212,7 +212,7 @@ namespace AmazonRegistration.Repo
                 return response;
             }
 
-            var result = db.tbl_user.FirstOrDefault(r => r.email.Trim().Equals(Otp.Email.Trim()) && r.otp.Trim().Equals(Otp.otp.Trim()) && userObj.otp_valid_till >= DateTime.UtcNow);
+            var result = db.tbl_user.FirstOrDefault(r => r.email.Trim().Equals(Otp.Email.Trim()) && r.otp.Trim().Equals(Otp.otp.Trim()) && userObj.otp_valid_till >= DateTime.Now);
             if (result != null)
             {
                 result.is_active = true;
