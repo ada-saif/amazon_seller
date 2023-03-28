@@ -36,15 +36,27 @@ namespace AmazonRegistration.Repo
                 access_key = assumeRoleRes.Credentials.AccessKeyId,
                 secret_key = assumeRoleRes.Credentials.SecretAccessKey,
                 session_token = assumeRoleRes.Credentials.SessionToken,
-                expiry = DateTime.Now.AddSeconds(3600),
+                expires_on = DateTime.Now.AddSeconds(3600),
             };
-            var User_detail = db.tbl_user_profile.FirstOrDefault(a => a.p_id == p_id);
-            if (User_detail == null) { return null; }
-            User_detail.aws_access_key = sd.access_key;
-            User_detail.client_secret = sd.secret_key;
-            User_detail.s_expires_in = sd.expiry;
-            User_detail.session_token = sd.session_token;
-            db.Entry(User_detail).CurrentValues.SetValues(User_detail);
+            var User_detail = db.tbl_sts_token.FirstOrDefault(a => a.user_id == p_id);
+            if (User_detail != null) 
+            {
+                User_detail.access_key = sd.access_key;
+                User_detail.secret_key = sd.secret_key;
+                User_detail.expires_on = sd.expires_on;
+                User_detail.session_token = sd.session_token;
+                db.Entry(User_detail).CurrentValues.SetValues(User_detail);
+            }
+            else
+            {
+                STSTokenData tokenData = new STSTokenData();
+              //  tokenData.user_id=
+                tokenData.access_key = sd.access_key;
+                tokenData.secret_key = sd.secret_key;
+                tokenData.expires_on = sd.expires_on;
+                tokenData.session_token = sd.session_token;
+                db.Entry(User_detail).CurrentValues.SetValues(User_detail);
+            }
             if (db.SaveChanges() > 0)
             {
                 return sd;
@@ -59,11 +71,11 @@ namespace AmazonRegistration.Repo
         {
             try
             {
-                var data = db.tbl_user_profile.FirstOrDefault(a => a.p_id == p_id);
+                var data = db.tbl_sts_token.FirstOrDefault(a => a.user_id == p_id);
                 var a = new STSTokenData
                 {
                     secret_key = data.session_token,
-                    expiry = Convert.ToDateTime(data.s_expires_in),
+                    expires_on = Convert.ToDateTime(data.expires_on),
                 };
                 return a;
 
@@ -76,7 +88,7 @@ namespace AmazonRegistration.Repo
         public async Task<STSTokenData> GetToken(int p_id)
         {
             var tokenData = GetTokenDataFromFile(p_id);
-            if (tokenData == null || tokenData.expiry < DateTime.Now.AddMinutes(1))
+            if (tokenData == null || tokenData.expires_on < DateTime.Now.AddMinutes(1))
                 tokenData = await GenerateNewToken(p_id);
             return tokenData;
         }

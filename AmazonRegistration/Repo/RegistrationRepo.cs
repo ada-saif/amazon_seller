@@ -38,6 +38,7 @@ namespace AmazonRegistration.Repo
             if (login.MobileNumber.Length < 2 || login.MobileNumber.Length > 20) { response.Message = "Enter min 2 and max 20 length"; return response; }
             if (login.Password.Length < 8 || login.Password.Length > 25) { response.Message = "Enter min 8 and max 25 length"; return response; }
             var user = this.LoginCheck(login);
+            if (user == null) { response.Message = "User not exits..Invalid client request";return response; }
             if (user.is_active == false) { response.Message = "You have not registered";return response;}
             var count = _profile.GetUserCount(user.id);
             var claim = new Claim("UserCount", count.ToString());
@@ -151,33 +152,52 @@ namespace AmazonRegistration.Repo
                 var resp = rc.ExecutePost(rr);
                 var data = JsonConvert.DeserializeObject<AccessTokenResponse>(resp.Content);
                 if (resp == null) { response.Message = "Failed to generate token"; return response; }
+
                 var ad = new AccessTokenResponse
                 {
                     access_token = data.access_token,
                     refresh_token = data.refresh_token,
                     expires_in = data.expires_in,
                 };
-                var access = db.tbl_user_profile.FirstOrDefault(a => a.user_id == user.user_id);
-                if (access.a_expires_in < DateTime.Now.AddMinutes(1))
+                var userCheck = db.tbl_user_subsription.FirstOrDefault(a => a.user_id == user.user_id);
+                if(userCheck != null)
                 {
-                    SellerDetail seller = new SellerDetail();
-                    seller.access_token = ad.access_token;
-                    seller.a_expires_in = Convert.ToDateTime(ad.expires_in);
+                    userCheck.spapi_oauth_code = user.spapi_oauth_code;
+                    userCheck.mws_auth_token = user.mws_auth_token;
+                    userCheck.auth_on = DateTime.Now;
+                    userCheck.is_active = false;
+                    userCheck.refresh_token = ad.refresh_token;
+                    userCheck.expires_on = DateTime.Now.AddMinutes(1);
+                    userCheck.selling_partner_id = user.selling_partner_id;
+                    db.Entry(userCheck).CurrentValues.SetValues(userCheck);
+                    db.SaveChanges();
+                }
+                else
+                {
+                    response.Message = "first fill the subscription name and region..";
+                    return response;
+                }
+                var access = db.tbl_access_token.FirstOrDefault(a => a.subsription_id == user.user_id);
+                if (access.expires_on < DateTime.Now.AddMinutes(1))
+                {
+                    AccessTokenModel model = new AccessTokenModel();
+                    model.access_token = ad.access_token;
+                    model.expires_on = DateTime.Now.AddSeconds(ad.expires_in);
                     db.Entry(access).CurrentValues.SetValues(access);
                     db.SaveChanges();
                 }
                 if (access == null)
                 {
-                    SellerDetail seller = new SellerDetail();
-                    seller.user_id = user.user_id;
-                    seller.access_token = ad.access_token;
-                    seller.refresh_token = ad.refresh_token;
-                    seller.s_expires_in = Convert.ToDateTime(ad.expires_in);
+                    AccessTokenModel model = new AccessTokenModel();
+                    model.subsription_id = user.user_id;
+                    model.access_token = ad.access_token;
+                    model.expires_on = DateTime.Now.AddSeconds(ad.expires_in);
+                    db.tbl_access_token.Add(model);
                     db.SaveChanges();
                 }
                 var user_profile_data = _profile.GetUserProfile(ad.access_token);
                 if (user_profile_data != null)
-                { response.Status = true; response.Message = "Data  get successfully"; response.ResponseObject = user_profile_data; return response; }
+                { response.Status = true; response.Message = "Data  get successfully"; response.ResponseObject = user_profile_data.User_id; return response; }
                 else
                 { response.Message = "No User Detail Found"; return response; }
             }

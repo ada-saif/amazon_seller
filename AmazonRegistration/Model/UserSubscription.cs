@@ -1,12 +1,15 @@
-﻿namespace AmazonSellerApi.Model
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace AmazonSellerApi.Model
 {
     
         public class UserSubscription
         {
+        [Key]
             public int? id { get; set; }
             public int? user_id { get; set; }
-            public string sub_name { get; set; }
-            public string region { get; set; }
+            public string? sub_name { get; set; }
+            public string? region { get; set; }
             public string? auth_key { get; set; }
             public DateTime? auth_on { get; set; }
             public string? spapi_oauth_code { get; set; }

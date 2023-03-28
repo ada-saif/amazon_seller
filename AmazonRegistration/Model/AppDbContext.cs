@@ -12,6 +12,11 @@ namespace AmazonRegistration.Model
         public DbSet<Order> tbl_order { get; set; }
         public DbSet<SellerDetail> tbl_user_profile { get; set; }
         public DbSet<UserSubscription> tbl_user_subsription { get; set; }
+        public DbSet<AccessTokenModel> tbl_access_token { get; set; }
+        public DbSet<STSTokenData> tbl_sts_token { get; set; }
+
+
+
 
 
 

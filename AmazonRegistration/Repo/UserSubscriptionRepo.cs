@@ -12,7 +12,7 @@ namespace AmazonSellerApi.Repo
             this.db = db;
         }
 
-        public Response Savesubs(UserSubscription subscription)
+        public Response SaveSubs(UserSubscription subscription)
         {
             Response response=new Response();
             if (subscription == null) { response.Message = "please provide the detail";return response;}
@@ -43,5 +43,7 @@ namespace AmazonSellerApi.Repo
 
 
         }
+
+        
     }
 }
