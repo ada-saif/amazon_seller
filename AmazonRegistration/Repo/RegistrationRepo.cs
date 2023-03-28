@@ -4,6 +4,9 @@ using AmazonRegistration.Model;
 using AmazonSellerApi.Model;
 using AmazonSellerApi.Repo;
 using Microsoft.AspNetCore.Cryptography.KeyDerivation;
+using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
+using RestSharp;
 using System.Security.Claims;
 namespace AmazonRegistration.Repo
 {
