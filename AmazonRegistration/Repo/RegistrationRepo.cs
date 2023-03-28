@@ -83,7 +83,7 @@ namespace AmazonRegistration.Repo
                 return response;
             }
             var data = db.tbl_user.FirstOrDefault(a => a.email == userModel.email || a.mobile == userModel.mobile);
-            if(data != null) { this.UpdateUser(data); }
+            if(data != null) { var userDetail=this.UpdateUser(data);return userDetail; }
             var checkMobileNumber = db.tbl_user.FirstOrDefault(a => a.mobile == userModel.mobile);
             if (checkMobileNumber != null) { response.Message = "Mobile Number already exists"; return response; }
             var CheckUsername = db.tbl_user.FirstOrDefault(a => a.user_name == userModel.user_name);
@@ -101,7 +101,7 @@ namespace AmazonRegistration.Repo
             obj.email = userModel.email;
             obj.password = Salt(userModel.password);
             obj.is_active = false;
-            obj.otp_valid_till = DateTime.UtcNow.AddSeconds(60);
+            obj.otp_valid_till = DateTime.UtcNow.AddSeconds(240);
             db.tbl_user.Add(obj);
             int res = db.SaveChanges();
             if (res > 0)
@@ -134,7 +134,7 @@ namespace AmazonRegistration.Repo
             return hashed;
         }
 
-        public async Task<Response> GenerateAccessTokenss(authModel user)
+        public async Task<Response> GenerateAccessTokenByAuth(authModel user)
         {
             Response response = new Response();
             try
@@ -144,10 +144,9 @@ namespace AmazonRegistration.Repo
                 rr.AddJsonBody(new
                 {
                     grant_type = "authorization_code",
-                    code = user.auth_code,
+                    code = user.spapi_oauth_code,
                     client_id = Config.D.credentials.client_id,
                     client_secret = Config.D.credentials.client_secret,
-                    redirect_url = Config.D.credentials.redirect_url,
                 });
                 var resp = rc.ExecutePost(rr);
                 var data = JsonConvert.DeserializeObject<AccessTokenResponse>(resp.Content);
@@ -212,10 +211,13 @@ namespace AmazonRegistration.Repo
                 return response;
             }
 
-            var result = db.tbl_user.FirstOrDefault(r => r.email.Trim().Equals(Otp.Email.Trim()) && r.otp.Trim().Equals(Otp.otp.Trim()) && userObj.otp_valid_till >= DateTime.UtcNow);
+
+            var result = db.tbl_user.FirstOrDefault(r => r.email.Trim().Equals(Otp.Email.Trim()) && r.otp.Trim().Equals(Otp.otp.Trim()) && userObj.otp_valid_till >= DateTime.Now);
             if (result != null)
             {
                 result.is_active = true;
+                db.Entry(result).CurrentValues.SetValues(result);
+                db.SaveChanges();
                 response.Status = true;
                 response.Message = "OTP Validated";
                 response.ResponseObject = userObj.otp;
@@ -262,7 +264,7 @@ namespace AmazonRegistration.Repo
             data.mobile = model.mobile;
             data.otp = OtpObj;
             data.is_active = false;
-            data.otp_valid_till = DateTime.UtcNow.AddSeconds(60);
+            data.otp_valid_till = DateTime.UtcNow.AddSeconds(240);
             db.tbl_user.Attach(data);
             db.Entry(data).State = EntityState.Modified;
             var i = db.SaveChanges();
