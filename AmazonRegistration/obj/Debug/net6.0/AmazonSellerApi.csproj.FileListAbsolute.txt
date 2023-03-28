@@ -70,3 +70,13 @@ C:\saif\AmazonRegistration\AmazonRegistration\obj\Debug\net6.0\refint\AmazonSell
 C:\saif\AmazonRegistration\AmazonRegistration\obj\Debug\net6.0\AmazonSellerApi.pdb
 C:\saif\AmazonRegistration\AmazonRegistration\obj\Debug\net6.0\AmazonSellerApi.genruntimeconfig.cache
 C:\saif\AmazonRegistration\AmazonRegistration\obj\Debug\net6.0\ref\AmazonSellerApi.dll
+D:\Api Projects\AmazonRegistration\AmazonRegistration\obj\Debug\net6.0\AmazonSellerApi.csproj.AssemblyReference.cache
+D:\Api Projects\AmazonRegistration\AmazonRegistration\obj\Debug\net6.0\AmazonSellerApi.GeneratedMSBuildEditorConfig.editorconfig
+D:\Api Projects\AmazonRegistration\AmazonRegistration\obj\Debug\net6.0\AmazonSellerApi.AssemblyInfoInputs.cache
+D:\Api Projects\AmazonRegistration\AmazonRegistration\obj\Debug\net6.0\AmazonSellerApi.AssemblyInfo.cs
+D:\Api Projects\AmazonRegistration\AmazonRegistration\obj\Debug\net6.0\AmazonSellerApi.csproj.CoreCompileInputs.cache
+D:\Api Projects\AmazonRegistration\AmazonRegistration\obj\Debug\net6.0\AmazonSellerApi.MvcApplicationPartsAssemblyInfo.cs
+D:\Api Projects\AmazonRegistration\AmazonRegistration\obj\Debug\net6.0\AmazonSellerApi.MvcApplicationPartsAssemblyInfo.cache
+D:\Api Projects\AmazonRegistration\AmazonRegistration\obj\Debug\net6.0\AmazonSellerApi.dll
+D:\Api Projects\AmazonRegistration\AmazonRegistration\obj\Debug\net6.0\refint\AmazonSellerApi.dll
+D:\Api Projects\AmazonRegistration\AmazonRegistration\obj\Debug\net6.0\AmazonSellerApi.pdb
