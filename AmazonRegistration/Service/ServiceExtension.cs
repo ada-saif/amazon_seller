@@ -1,6 +1,8 @@
 ﻿using AmazonRegistration.Interface;
 using AmazonRegistration.Repo;
 using AmazonRegistration.Repo.AmazonRegistration.Repo;
+using AmazonSellerApi.Interface;
+using AmazonSellerApi.Repo;
 
 namespace AmazonRegistration.Service
 {
@@ -15,6 +17,7 @@ namespace AmazonRegistration.Service
             services.AddTransient<ITokenService, TokenService>();
             services.AddTransient<IProfile, ProfileRepo>();
             services.AddTransient<IGanrateAccessToken, GanrateAccessToken>();
+            services.AddTransient<IUserSubsriptionRepo, UserSubscriptionRepo>();
 
 
 

@@ -62,9 +62,11 @@ namespace AmazonRegistration.Model
             }
             public class authModel 
             {
-                public string auth_code { get; set; }
-                public int user_id { get; set; }
-
+                public string? spapi_oauth_code { get; set; }
+                public int? user_id { get; set; }
+               public string? state { get; set;}
+               public string? mws_auth_token { get; set; }
+               public string? selling_partner_id { get; set; }
             }
 
 

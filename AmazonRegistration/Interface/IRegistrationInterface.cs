@@ -7,7 +7,7 @@ namespace AmazonRegistration.Interface
     {
         public Response UserRegistration(RegistrationModel userModel);
         public Response UserLogin(Login login);
-        public Task<Response> GenerateAccessTokenss(authModel user);
+        public Task<Response> GenerateAccessTokenByAuth(authModel user);
 
         public string Salt(string Original);
         public Response ValidateOtp(validateOtp otp);
