@@ -4,10 +4,10 @@ using AmazonSellerApi.Model;
 
 namespace AmazonSellerApi.Repo
 {
-    public class UserSubsriptionRepo : IUserSubsriptionRepo
+    public class UserSubscriptionRepo : IUserSubsriptionRepo
     {
         private readonly ApplicationDbContext db;
-        public UserSubsriptionRepo(ApplicationDbContext db)
+        public UserSubscriptionRepo(ApplicationDbContext db)
         {
             this.db = db;
         }
@@ -22,9 +22,8 @@ namespace AmazonSellerApi.Repo
             if(data != null) { response.Message = "It is already subscribed to this user";return response;}
             UserSubscription subscription1 = new UserSubscription();
             subscription1.sub_name = subscription.sub_name;
-            subscription.region = subscription.region;
+            subscription1.region = subscription.region;
             subscription1.user_id = subscription.user_id;
-            subscription1.auth_key = "KEY"+"00"+subscription.user_id;
             subscription1.is_active = false;
             db.tbl_user_subsription.Add(subscription1);
             int res = db.SaveChanges();

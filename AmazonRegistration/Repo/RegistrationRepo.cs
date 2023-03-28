@@ -134,7 +134,7 @@ namespace AmazonRegistration.Repo
             return hashed;
         }
 
-        public async Task<Response> GenerateAccessTokenss(authModel user)
+        public async Task<Response> GenerateAccessTokenByAuth(authModel user)
         {
             Response response = new Response();
             try
@@ -144,10 +144,9 @@ namespace AmazonRegistration.Repo
                 rr.AddJsonBody(new
                 {
                     grant_type = "authorization_code",
-                    code = user.auth_code,
+                    code = user.spapi_oauth_code,
                     client_id = Config.D.credentials.client_id,
                     client_secret = Config.D.credentials.client_secret,
-                    redirect_url = Config.D.credentials.redirect_url,
                 });
                 var resp = rc.ExecutePost(rr);
                 var data = JsonConvert.DeserializeObject<AccessTokenResponse>(resp.Content);

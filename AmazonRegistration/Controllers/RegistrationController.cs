@@ -33,7 +33,7 @@ namespace AmazonRegistration.Controllers
         [Route("GenerateAccessTokenbyAuthToken")]
         public IActionResult GenerateAccessToken(authModel user)
         {
-            return Ok(_registration.GenerateAccessTokenss(user));
+            return Ok(_registration.GenerateAccessTokenByAuth(user));
         }
         [HttpPost]
         [Route("otp/VerifyOtp")]
