@@ -13,6 +13,15 @@
         public string amazon_user_email { get; set; }
 
     }
+    public class returnProfileData
+    {
+        public int? p_id { get; set; }
+        public int? user_id { get; set; }
+        public string? sub_name { get; set; }
+        public string? region { get; set; }
+        public string? amazon_user_id { get; set; }
+    }
+
     public class UserProfileResponse
         {
             public string User_id { get; set; }

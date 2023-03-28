@@ -18,7 +18,7 @@ namespace AmazonSellerApi.Controllers
         [Route("AddUserSubscription")]
         public IActionResult UserRegistration(UserSubscription subscription)
         {
-            return Ok(_userSubsription.Savesubs(subscription));
+            return Ok(_userSubsription.SaveSubs(subscription));
         }
     }
 }

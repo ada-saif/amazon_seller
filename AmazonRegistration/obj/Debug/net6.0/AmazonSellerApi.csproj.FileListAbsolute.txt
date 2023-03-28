@@ -80,6 +80,7 @@ D:\Api Projects\AmazonRegistration\AmazonRegistration\obj\Debug\net6.0\AmazonSel
 D:\Api Projects\AmazonRegistration\AmazonRegistration\obj\Debug\net6.0\AmazonSellerApi.dll
 D:\Api Projects\AmazonRegistration\AmazonRegistration\obj\Debug\net6.0\refint\AmazonSellerApi.dll
 D:\Api Projects\AmazonRegistration\AmazonRegistration\obj\Debug\net6.0\AmazonSellerApi.pdb
+<<<<<<< HEAD
 D:\Api Projects\AmazonRegistration\AmazonRegistration\bin\Debug\net6.0\appsettings.Development.json
 D:\Api Projects\AmazonRegistration\AmazonRegistration\bin\Debug\net6.0\appsettings.json
 D:\Api Projects\AmazonRegistration\AmazonRegistration\bin\Debug\net6.0\AmazonSellerApi.exe
@@ -142,3 +143,5 @@ D:\Api Projects\AmazonRegistration\AmazonRegistration\obj\Debug\net6.0\scopedcss
 D:\Api Projects\AmazonRegistration\AmazonRegistration\obj\Debug\net6.0\AmazonSellerApi.csproj.CopyComplete
 D:\Api Projects\AmazonRegistration\AmazonRegistration\obj\Debug\net6.0\AmazonSellerApi.genruntimeconfig.cache
 D:\Api Projects\AmazonRegistration\AmazonRegistration\obj\Debug\net6.0\ref\AmazonSellerApi.dll
+=======
+>>>>>>> main

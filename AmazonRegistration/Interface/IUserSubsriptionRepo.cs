@@ -5,6 +5,7 @@ namespace AmazonSellerApi.Interface
 {
     public interface IUserSubsriptionRepo
     {
-        public Response Savesubs(UserSubscription subscription);
+        public Response SaveSubs(UserSubscription subscription);
+
     }
 }

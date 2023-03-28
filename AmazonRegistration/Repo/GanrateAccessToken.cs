@@ -29,10 +29,10 @@ namespace AmazonRegistration.Repo
                     access_token = resp.Data.access_token,
                     expiry = DateTime.Now.AddSeconds(resp.Data.expires_in),
                 };
-            var User_detail = _db.tbl_user_profile.FirstOrDefault(a => a.p_id == p_id);
+            var User_detail = _db.tbl_access_token.FirstOrDefault(a => a.subsription_id == p_id);
             if (User_detail == null) { return null; }
             User_detail.access_token = ad.access_token;
-            User_detail.a_expires_in = ad.expiry;
+            User_detail.expires_on = ad.expiry;
             _db.Entry(User_detail).CurrentValues.SetValues(User_detail);
             if (_db.SaveChanges() > 0)
             {
@@ -48,11 +48,11 @@ namespace AmazonRegistration.Repo
             {
                 try
                 {
-                var data = _db.tbl_user_profile.FirstOrDefault(a => a.p_id == p_id);
+                var data = _db.tbl_access_token.FirstOrDefault(a => a.subsription_id == p_id);
                 var a = new AccessTokenData
                  {
                     access_token=data.access_token,
-                    expiry=Convert.ToDateTime( data.a_expires_in),
+                    expiry=Convert.ToDateTime( data.expires_on),
                 };
                 return a;
 

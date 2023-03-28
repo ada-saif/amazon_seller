@@ -1,4 +1,6 @@
-﻿namespace AmazonRegistration.Model
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace AmazonRegistration.Model
 {
     public class AccessTokenResponse
     {
@@ -16,10 +18,13 @@
 
     public class STSTokenData
     {
+        [Key]
+        public int? id { get; set; }
         public string access_key { get; set; }
+        public int user_id { get; set; }
         public string secret_key { get; set; }
         public string session_token { get; set; }
-        public DateTime expiry { get; set; }
+        public DateTime expires_on { get; set; }
     }
 
 }
