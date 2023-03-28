@@ -270,6 +270,7 @@ namespace AmazonRegistration.Repo
             {
                 response.Status = true;
                 response.Message = "update data successfully";
+                response.ResponseObject = data;
                 return response;
             }
             else
