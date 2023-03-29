@@ -1,12 +1,12 @@
-﻿using AmazonRegistration.Model;
+﻿using AmazonSellerApi.Model.OrderRelatedModel;
 
 namespace AmazonRegistration.Interface
 {
     public interface Iorder
     {
-        public Object GetOrder();
+        public object GetOrder();
 
-        public Response LoadDataFromAmazon(inputFeild input);
+        public  Task<OrderData> LoadDataFromAmazon(inputFeild input);
 
     }
 }

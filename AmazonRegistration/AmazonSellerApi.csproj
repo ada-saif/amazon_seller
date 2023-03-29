@@ -19,4 +19,10 @@
     <PackageReference Include="System.Data.SqlClient" Version="4.8.5" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Reference Include="AlphaUtil">
+      <HintPath>..\..\Projects\amazon_seller_data\AmazonSellerData\AlphaUtil.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>

@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Api Projects\\AmazonRegistration\\AmazonRegistration\\AmazonSellerApi.csproj": {}
+    "C:\\saif\\AmazonRegistration\\AmazonRegistration\\AmazonSellerApi.csproj": {}
   },
   "projects": {
-    "D:\\Api Projects\\AmazonRegistration\\AmazonRegistration\\AmazonSellerApi.csproj": {
+    "C:\\saif\\AmazonRegistration\\AmazonRegistration\\AmazonSellerApi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Api Projects\\AmazonRegistration\\AmazonRegistration\\AmazonSellerApi.csproj",
+        "projectUniqueName": "C:\\saif\\AmazonRegistration\\AmazonRegistration\\AmazonSellerApi.csproj",
         "projectName": "AmazonSellerApi",
-        "projectPath": "D:\\Api Projects\\AmazonRegistration\\AmazonRegistration\\AmazonSellerApi.csproj",
-        "packagesPath": "C:\\Users\\ECS\\.nuget\\packages\\",
-        "outputPath": "D:\\Api Projects\\AmazonRegistration\\AmazonRegistration\\obj\\",
+        "projectPath": "C:\\saif\\AmazonRegistration\\AmazonRegistration\\AmazonSellerApi.csproj",
+        "packagesPath": "C:\\Users\\lenovo.T460\\.nuget\\packages\\",
+        "outputPath": "C:\\saif\\AmazonRegistration\\AmazonRegistration\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\ECS\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\lenovo.T460\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -87,8 +87,7 @@
             "net47",
             "net471",
             "net472",
-            "net48",
-            "net481"
+            "net48"
           ],
           "assetTargetFallback": true,
           "warn": true,
@@ -100,7 +99,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.401\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.302\\RuntimeIdentifierGraph.json"
         }
       }
     }

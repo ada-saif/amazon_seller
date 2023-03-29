@@ -4,6 +4,9 @@ using AmazonRegistration.Model;
 using AmazonSellerApi.Model;
 using AmazonSellerApi.Repo;
 using Microsoft.AspNetCore.Cryptography.KeyDerivation;
+using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
+using RestSharp;
 using System.Security.Claims;
 namespace AmazonRegistration.Repo
 {
@@ -192,7 +195,7 @@ namespace AmazonRegistration.Repo
                     db.tbl_access_token.Add(model);
                     db.SaveChanges();
                 }
-                var user_profile_data = _profile.GetUserProfile(ad.access_token);
+                var user_profile_data = _profile.GetUserProfile(ad.access_token,user.user_id);
                 if (user_profile_data != null)
                 { response.Status = true; response.Message = "Data  get successfully"; response.ResponseObject = user_profile_data.User_id; return response; }
                 else

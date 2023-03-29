@@ -11,16 +11,14 @@ namespace AmazonRegistration.Repo
     {
         private readonly ApplicationDbContext db;
         private readonly IConfiguration _config;
-        private readonly LoggedIn loggedInUser;
 
 
         public ProfileRepo(ApplicationDbContext db, IConfiguration config, IHttpContextAccessor contextAccessor)
         {
             this.db = db;
            _config = config;
-            this.loggedInUser = log.GetLoggedInUser(contextAccessor);
         }
-        public UserProfileResponse GetUserProfile(string AccessToken)
+        public UserProfileResponse GetUserProfile(string AccessToken,int user_id)
         {
             try
             {
@@ -32,6 +30,20 @@ namespace AmazonRegistration.Repo
                 var resp = rc.ExecuteGet(rr);
 
                 var data = JsonConvert.DeserializeObject<UserProfileResponse>(resp.Content);
+                if(data != null)
+                {
+                    Profile pro = new Profile();
+                    pro.user_id = Convert.ToInt32(user_id);
+                    pro.amazon_user_email = data.email;
+                    pro.amazon_user_id = data.User_id;
+                    pro.amazon_user_name = data.name;
+                    pro.created_by = user_id;
+                    pro.created_on = DateTime.Now;
+                    pro.updated_by = user_id;
+                    pro.updated_on = DateTime.Now;
+                    db.tbl_user_profile.Add(pro);
+                    db.SaveChanges();
+                }
                 return data;
             }
             catch (Exception ex)
@@ -104,7 +116,7 @@ namespace AmazonRegistration.Repo
         {
             Response response = new Response();
             if (UserId == null || UserId == 0) { response.Message = "please enter the userId"; return response; }
-            var sql = "select tp.p_id,tp.user_id,ts.region,ts.sub_name,tp.amazon_user_id from tbl_user_profile tp left join tbl_user_subsription ts on ts.user_id=tp.user_id where tp.user_id='" + UserId + "'";
+            var sql = "select ts.user_id,ts.region,ts.sub_name from tbl_user_subsription ts where user_id='" + UserId + "'";
             var connectionString = _config.GetConnectionString("Amazon");
             using (var connection = new NpgsqlConnection(connectionString))
             {
@@ -120,11 +132,9 @@ namespace AmazonRegistration.Repo
                             {
                                 var List = new returnProfileData
                                 {
-                                    p_id= reader.IsDBNull(0) ? 0 : reader.GetInt32(0),
-                                    user_id = reader.IsDBNull(1) ? 0 : reader.GetInt32(1),
-                                    region= reader.IsDBNull(2) ? null : reader.GetString(2),
-                                    sub_name= reader.IsDBNull(3) ? null : reader.GetString(3),
-                                    amazon_user_id = reader.IsDBNull(4) ? null : reader.GetString(4)
+                                    user_id = reader.IsDBNull(0) ? 0 : reader.GetInt32(0),
+                                    region= reader.IsDBNull(1) ? null : reader.GetString(1),
+                                    sub_name= reader.IsDBNull(2) ? null : reader.GetString(2),
                                 };
                                 ProfileList.Add(List);
                             }
